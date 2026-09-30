@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testes · PONG OOP</title>
+  <style>
+    :root { color-scheme: dark; font-family: ui-monospace, Consolas, monospace; }
+    body { margin: 0; min-height: 100vh; background: #050912; color: #e2e8f0; padding: 32px; }
+    main { width: min(900px, 100%); margin: auto; }
+    h1 { color: #a7f3d0; letter-spacing: .08em; }
+    #resumo, .suite { border: 1px solid #334155; background: #0b1220; border-radius: 10px; padding: 16px; margin: 12px 0; }
+    .pass { color: #86efac; } .fail { color: #fca5a5; }
+    ul { margin-bottom: 0; line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <main><h1>Testes do PONG</h1><div id="resumo">A executar…</div><div id="resultados"></div></main>
+  <script src="src/campo.js"></script><script src="src/raquete.js"></script><script src="src/bola.js"></script>
+  <script src="src/pontuacao.js"></script><script src="src/som.js"></script><script src="src/jogo.js"></script>
+  <script src="testes/harness.js"></script><script src="testes/campo.teste.js"></script><script src="testes/raquete.teste.js"></script>
+  <script src="testes/bola.teste.js"></script><script src="testes/pontuacao.teste.js"></script><script src="testes/som.teste.js"></script><script src="testes/jogo.teste.js"></script>
+  <script>
+    'use strict';
+    let aprovados = 0;
+    let falhas = 0;
+    const resultados = document.getElementById('resultados');
+    (window.__pongSuites || []).forEach((suite) => {
+      const resultado = suite.run();
+      aprovados += resultado.passed;
+      falhas += resultado.failed;
+      const artigo = document.createElement('section');
+      artigo.className = 'suite';
+      artigo.innerHTML = `<strong>${resultado.name}: <span class="${resultado.failed ? 'fail' : 'pass'}">${resultado.passed} aprovados · ${resultado.failed} falhas</span></strong>`;
+      const lista = document.createElement('ul');
+      resultado.detalhes.forEach((teste) => {
+        const item = document.createElement('li');
+        item.className = teste.passou ? 'pass' : 'fail';
+        item.textContent = `${teste.passou ? '✓' : '✗'} ${teste.nome}${teste.erro ? ' — ' + teste.erro : ''}`;
+        lista.appendChild(item);
+      });
+      artigo.appendChild(lista);
+      resultados.appendChild(artigo);
+    });
+    const resumo = document.getElementById('resumo');
+    resumo.className = falhas ? 'fail' : 'pass';
+    resumo.textContent = falhas ? `${falhas} teste(s) falharam; ${aprovados} passaram.` : `Todos os ${aprovados} testes passaram.`;
+    document.title = falhas ? 'FALHA · Testes PONG' : 'OK · Testes PONG';
+  </script>
+</body>
+</html>

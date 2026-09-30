@@ -1,0 +1,30 @@
+# Dependencias e caches locais
+node_modules/
+.npm/
+.cache/
+.parcel-cache/
+coverage/
+
+# Artefactos de ferramentas e ficheiros temporarios
+graphify-out/
+podcli-clips/
+*.log
+*.tmp
+*.temp
+*.bak
+testes-browser*.png
+jogo-browser*.png
+
+# Configuracao local e segredos
+.env
+.env.*
+!.env.example
+*.local
+
+# Sistema operativo e editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+

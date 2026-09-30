@@ -1,0 +1,8 @@
+{
+  "name": "pong-oop",
+  "version": "1.0.0",
+  "description": "Pong em JavaScript com OOP e p5.js",
+  "scripts": {
+    "test": "node testes/executar-testes.js"
+  }
+}
